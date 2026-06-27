@@ -36,6 +36,6 @@ delete d.properties.pop2020,
 delete d.properties.popch10_20,
 delete d.properties.housing20,
 d' >temp-map.ndjson
-geo2topo -n overlay=temp-map.ndjson |
+geo2topo -n cities=temp-map.ndjson |
     toposimplify -p .005 -f |
     topoquantize 1e5 > essex-towns-topo.json
