@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 
 shp2json $argv[1] |
-    geoproject -n 'd3.geoAlbersUsa().scale(1300).translate([487.5, 305])' |
+    geoproject -n 'd3.geoConicConformal().parallels([41 + 43 / 60, 42 + 41 / 60]).rotate([71 + 30 / 60, 0]).fitSize([975,610], d)' |
     ndjson-split 'd.features' |
     ndjson-map 'delete d.properties.statefp20,
 delete d.properties.countyfp20,
