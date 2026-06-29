@@ -35,6 +35,9 @@ delete d.properties.pop2010,
 delete d.properties.pop2020,
 delete d.properties.popch10_20,
 delete d.properties.housing20,
+d.id = d.properties.geoid20,
+delete d.properties.geoid20,
+delete d.properties.namelsad20,
 d' >temp-map.ndjson
 geo2topo -n cities=temp-map.ndjson |
     toposimplify -p .005 -f |
