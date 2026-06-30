@@ -1,6 +1,9 @@
 #!/usr/bin/env fish
 
 shp2json $argv[1] |
+    ndjson-split 'd.features' |
+    ndjson-filter 'd.properties.countyfp20 === "009"' |
+    ndjson-reduce 'p.features.push(d), p' '{type: "FeatureCollection", features: []}' |
     geoproject -n 'd3.geoConicConformal().parallels([41 + 43 / 60, 42 + 41 / 60]).rotate([71 + 30 / 60, 0]).fitSize([975,610], d)' |
     ndjson-split 'd.features' |
     ndjson-map 'delete d.properties.statefp20,
@@ -40,5 +43,5 @@ delete d.properties.geoid20,
 delete d.properties.namelsad20,
 d' >temp-map.ndjson
 geo2topo -n cities=temp-map.ndjson |
-    toposimplify -p .005 -f |
-    topoquantize 1e5 > essex-towns-topo.json
+    toposimplify -p 1 -f |
+    topoquantize 1e4 > essex-towns-topo.json
